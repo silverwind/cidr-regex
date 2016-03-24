@@ -12,6 +12,9 @@ $ npm install --save cidr-regex
 ```js
 import cidr from 'cidr-regex' // default regex is cidr v4
 import { cidrv4, cidrv6 } from 'cidr-regex'
+// OR
+var cidrv4 = require('cidr-regex').cidrv4
+var cidrv6 = require('cidr-regex').cidrv6
 
 // is a CIDR v4
 cidr.test('18.101.25.153/24') // true
