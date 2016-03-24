@@ -2,10 +2,10 @@
   "name": "cidr-regex",
   "version": "1.0.2",
   "description": "Regular expression for matching CIDR (Classless Inter-Domain Routing)",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "babel index.js -d dist/",
-    "prepublish": "npm run build",
+    "compile": "babel --presets es2015 -d lib/ src/",
+    "prepublish": "npm run compile",
     "test": "ava --require babel-register"
   },
   "repository": {
