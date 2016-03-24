@@ -52,6 +52,10 @@ A regex for matching CIDR IPv4
 
 A regex for matching CIDR IPv6
 
+## Other notes
+
+This was inspired by npm package [ip-regex](https://www.npmjs.com/package/ip-regex). I've used the same samples on unit testing for IPv4 and modified for CIDR testing.
+
 ## License
 
 MIT © [Felipe Apostol](https://github.com/flipjs)

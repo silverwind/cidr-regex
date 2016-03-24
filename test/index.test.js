@@ -1,7 +1,7 @@
 'use strict'
 
 import test from 'ava'
-import cidr, { cidrv4, cidrv6 } from './src'
+import cidr, { cidrv4, cidrv6 } from '../src'
 
 const v4 = [
   '0.0.0.0/16',
