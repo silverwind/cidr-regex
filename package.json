@@ -1,6 +1,6 @@
 {
   "name": "cidr-regex",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Regular expression for matching CIDR (Classless Inter-Domain Routing)",
   "main": "dist/index.js",
   "scripts": {
