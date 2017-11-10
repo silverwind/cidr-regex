@@ -54,7 +54,7 @@ A regex for matching CIDR IPv6
 
 ## Other notes
 
-This was inspired by npm package [ip-regex](https://www.npmjs.com/package/ip-regex). I've used the same samples on unit testing for IPv4 and modified for CIDR testing.
+This was inspired by npm package [ip-regex](https://www.npmjs.com/package/ip-regex). I've used the same samples on unit testing for IPv4 and modified for CIDR testing. Other IPv6 test cases were taken from [IPv6 Regex by Dartware, LLC](https://www.helpsystems.com/intermapper/ipv6-test-address-validation) (licensed under CC-BY-SA 3.0).
 
 ## License
 
