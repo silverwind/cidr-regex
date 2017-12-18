@@ -1,14 +1,7 @@
 # cidr-regex
+> Regular expression for matching IP addresses in CIDR notation
 
-Regular expression for matching CIDR (Classless Inter-Domain Routing)
-
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-[![version](https://img.shields.io/npm/v/cidr-regex.svg?style=flat-square)](http://npm.im/cidr-regex)
-[![MIT License](https://img.shields.io/npm/l/cidr-regex.svg?style=flat-square)](http://opensource.org/licenses/MIT)
-[![travis build](https://img.shields.io/travis/flipjs/cidr-regex.svg?style=flat-square)](https://travis-ci.org/flipjs/cidr-regex)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
-[![downloads](https://img.shields.io/npm/dm/cidr-regex.svg?style=flat-square)](http://npm-stat.com/charts.html?package=cidr-regex&from=2016-03-24)
+[![](https://img.shields.io/npm/v/cidr-regex.svg?style=flat)](https://www.npmjs.org/package/cidr-regex) [![](https://img.shields.io/npm/dm/cidr-regex.svg)](https://www.npmjs.org/package/cidr-regex) [![](https://api.travis-ci.org/silverwind/cidr-regex.svg?style=flat)](https://travis-ci.org/silverwind/cidr-regex)
 
 ## Install
 
@@ -19,44 +12,53 @@ $ npm install --save cidr-regex
 ## Usage
 
 ```js
-import cidr from 'cidr-regex' // default regex is cidr v4
-import { cidrv4, cidrv6 } from 'cidr-regex'
-// OR
-var cidrv4 = require('cidr-regex').cidrv4
-var cidrv6 = require('cidr-regex').cidrv6
+const cidrRegex = require('cidr-regex');
 
-// is a CIDR v4
-cidr.test('18.101.25.153/24') // true
+// Contains a CIDR IP address?
+cidrRegex().test('foo 192.168.0.1/24');
+//=> true
 
-// is not a CIDR v4
-cidrv4.test('999.999.999.999/12') // false
+// Is a CIDR IP address?
+cidrRegex({exact: true}).test('foo 192.168.0.1/24');
+//=> false
 
-// is a CIDR v6
-cidrv6.test('fe80:0000:0000:0000:0204:61ff:fe9d:f156') // true
+cidrRegex.v6({exact: true}).test('1:2:3:4:5:6:7:8/64');
+//=> true
 
-// is not a CIDR v6
-cidrv6.test('fe80:0000:0000:0000:0204:61ff:fe9d:f156/a') // false
+'foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz'.match(cidrRegex());
+//=> ['192.168.0.1', '1:2:3:4:5:6:7:8']
 ```
 
 ## API
 
-### cidr
+### cidrRegex([options])
 
-A regex for matching CIDR IPv4
+Returns a regex for matching both IPv4 and IPv6 CIDR IP addresses.
 
-### cidrv4
+### cidrRegex.v4([options])
 
-A regex for matching CIDR IPv4
+Returns a regex for matching IPv4 CIDR IP addresses.
 
-### cidrv6
+### cidrRegex.v6([options])
 
-A regex for matching CIDR IPv6
+Returns a regex for matching IPv6 CIDR IP addresses.
 
-## Other notes
+#### options.exact
 
-This was inspired by npm package [ip-regex](https://www.npmjs.com/package/ip-regex). I've used the same samples on unit testing for IPv4 and modified for CIDR testing. Other IPv6 test cases were taken from [IPv6 Regex by Dartware, LLC](https://www.helpsystems.com/intermapper/ipv6-test-address-validation) (licensed under CC-BY-SA 3.0).
+Type: `boolean`<br>
+Default: `false` *(Matches any CIDR IP address in a string)*
+
+Only match an exact string. Useful with `RegExp#test()` to check if a string is a CIDR IP address.
+
+
+## Related
+
+- [is-cidr](https://github.com/silverwind/is-cidr) - Check if a string is a CIDR IP address
+- [is-ip](https://github.com/sindresorhus/is-ip) - Check if a string is an IP prefex
+- [ip-regex](https://github.com/sindresorhus/ip-regex) - Regular expression for matching IP addresses
 
 ## License
 
-MIT © [Felipe Apostol](https://github.com/flipjs)
+© [silverwind](https://github.com/silverwind), distributed under BSD licence
 
+Based on previous work by [Felipe Apostol](https://github.com/flipjs)
