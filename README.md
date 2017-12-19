@@ -1,7 +1,7 @@
 # cidr-regex
-> Regular expression for matching IP addresses in CIDR notation
-
 [![](https://img.shields.io/npm/v/cidr-regex.svg?style=flat)](https://www.npmjs.org/package/cidr-regex) [![](https://img.shields.io/npm/dm/cidr-regex.svg)](https://www.npmjs.org/package/cidr-regex) [![](https://api.travis-ci.org/silverwind/cidr-regex.svg?style=flat)](https://travis-ci.org/silverwind/cidr-regex)
+
+> Regular expression for matching IP addresses in CIDR notation
 
 ## Install
 
@@ -26,7 +26,7 @@ cidrRegex.v6({exact: true}).test('1:2:3:4:5:6:7:8/64');
 //=> true
 
 'foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz'.match(cidrRegex());
-//=> ['192.168.0.1', '1:2:3:4:5:6:7:8']
+//=> ['192.168.0.1/24', '1:2:3:4:5:6:7:8/64']
 ```
 
 ## API
