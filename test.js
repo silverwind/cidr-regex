@@ -1,7 +1,7 @@
 "use strict";
 
 import test from "ava";
-import re from ".";
+import cidr from ".";
 
 const v4positive = [
   "0.0.0.0/16",
@@ -34,8 +34,6 @@ const v4negative = [
   "http://123.123.123/28",
   "1000.2.3.4/14",
   "999.2.3.4/8",
-  "0000000192.168.0.200/8",
-  "192.168.0.2000000000/16",
 ];
 
 const v6positive = [
@@ -383,26 +381,25 @@ const v6negative = [
   "::3333:4444:5555:6666:7777:8888:/64",
   "::2222:3333:4444:5555:6666:7777:8888:/64",
   "':10.0.0./641",
-  "02001:0000:1234:0000:0000:C1C0:ABCD:0876/64",
 ];
 
 test("cidr", t => {
-  v4positive.forEach(string => t.true(re({exact: true}).test(string)));
-  v4positive.forEach(string => t.is((re().exec(`foo ${string} bar`) || [])[0], string));
-  v4negative.forEach(string => t.false(re({exact: true}).test(string)));
-  v6positive.forEach(string => t.true(re({exact: true}).test(string)));
-  v6positive.forEach(string => t.is((re().exec(`foo ${string} bar`) || [])[0], string));
-  v6negative.forEach(string => t.false(re({exact: true}).test(string)));
+  v4positive.forEach(string => t.true(cidr({exact: true}).test(string)));
+  v4positive.forEach(string => t.is((cidr().exec(`foo ${string} bar`) || [])[0], string));
+  v4negative.forEach(string => t.false(cidr({exact: true}).test(string)));
+  v6positive.forEach(string => t.true(cidr({exact: true}).test(string)));
+  v6positive.forEach(string => t.is((cidr().exec(`foo ${string} bar`) || [])[0], string));
+  v6negative.forEach(string => t.false(cidr({exact: true}).test(string)));
 });
 
 test("cidr v4", t => {
-  v4positive.forEach(string => t.true(re.v4({exact: true}).test(string)));
-  v4positive.forEach(string => t.is((re.v4().exec(`foo ${string} bar`) || [])[0], string));
-  v4negative.forEach(string => t.false(re.v4({exact: true}).test(string)));
+  v4positive.forEach(string => t.true(cidr.v4({exact: true}).test(string)));
+  v4positive.forEach(string => t.is((cidr.v4().exec(`foo ${string} bar`) || [])[0], string));
+  v4negative.forEach(string => t.false(cidr.v4({exact: true}).test(string)));
 });
 
 test("cidr v6", t => {
-  v6positive.forEach(string => t.true(re.v6({exact: true}).test(string)));
-  v6positive.forEach(string => t.is((re.v6().exec(`foo ${string} bar`) || [])[0], string));
-  v6negative.forEach(string => t.false(re.v6({exact: true}).test(string)));
+  v6positive.forEach(string => t.true(cidr.v6({exact: true}).test(string)));
+  v6positive.forEach(string => t.is((cidr.v6().exec(`foo ${string} bar`) || [])[0], string));
+  v6negative.forEach(string => t.false(cidr.v6({exact: true}).test(string)));
 });
