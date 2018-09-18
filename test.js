@@ -1,7 +1,7 @@
 "use strict";
 
-import test from "ava";
-import cidr from ".";
+const cidrRegex = require(".");
+const assert = require("assert");
 
 const v4positive = [
   "0.0.0.0/16",
@@ -383,23 +383,17 @@ const v6negative = [
   "':10.0.0./641",
 ];
 
-test("cidr", t => {
-  v4positive.forEach(string => t.true(cidr({exact: true}).test(string)));
-  v4positive.forEach(string => t.is((cidr().exec(`foo ${string} bar`) || [])[0], string));
-  v4negative.forEach(string => t.false(cidr({exact: true}).test(string)));
-  v6positive.forEach(string => t.true(cidr({exact: true}).test(string)));
-  v6positive.forEach(string => t.is((cidr().exec(`foo ${string} bar`) || [])[0], string));
-  v6negative.forEach(string => t.false(cidr({exact: true}).test(string)));
-});
+v4positive.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), true));
+v4positive.forEach(string => assert.deepStrictEqual((cidrRegex().exec(`foo ${string} bar`) || [])[0], string));
+v4negative.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), false));
+v6positive.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), true));
+v6positive.forEach(string => assert.deepStrictEqual((cidrRegex().exec(`foo ${string} bar`) || [])[0], string));
+v6negative.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), false));
 
-test("cidr v4", t => {
-  v4positive.forEach(string => t.true(cidr.v4({exact: true}).test(string)));
-  v4positive.forEach(string => t.is((cidr.v4().exec(`foo ${string} bar`) || [])[0], string));
-  v4negative.forEach(string => t.false(cidr.v4({exact: true}).test(string)));
-});
+v4positive.forEach(string => assert.deepStrictEqual(cidrRegex.v4({exact: true}).test(string), true));
+v4positive.forEach(string => assert.deepStrictEqual((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0], string));
+v4negative.forEach(string => assert.deepStrictEqual(cidrRegex.v4({exact: true}).test(string), false));
 
-test("cidr v6", t => {
-  v6positive.forEach(string => t.true(cidr.v6({exact: true}).test(string)));
-  v6positive.forEach(string => t.is((cidr.v6().exec(`foo ${string} bar`) || [])[0], string));
-  v6negative.forEach(string => t.false(cidr.v6({exact: true}).test(string)));
-});
+v6positive.forEach(string => assert.deepStrictEqual(cidrRegex.v6({exact: true}).test(string), true));
+v6positive.forEach(string => assert.deepStrictEqual((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0], string));
+v6negative.forEach(string => assert.deepStrictEqual(cidrRegex.v6({exact: true}).test(string), false));
