@@ -15,7 +15,8 @@
     "node": ">=10"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "keywords": [
     "cidr",
@@ -34,6 +35,7 @@
     "eslint": "7.0.0",
     "eslint-config-silverwind": "13.1.0",
     "jest": "26.0.1",
+    "tsd": "^0.7.2",
     "updates": "10.2.11",
     "versions": "8.2.9"
   }

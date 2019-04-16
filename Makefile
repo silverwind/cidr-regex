@@ -1,6 +1,7 @@
 test:
-	yarn -s run jest --color
 	yarn -s run eslint --color .
+	yarn -s run tsd
+	yarn -s run jest --color
 
 unittest:
 	yarn -s run jest --color --watchAll
