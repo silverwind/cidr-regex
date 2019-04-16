@@ -6,27 +6,27 @@
 ## Install
 
 ```sh
-$ npm install --save cidr-regex
+$ npm install cidr-regex
 ```
 
 ## Usage
 
 ```js
-const cidrRegex = require('cidr-regex');
+const cidrRegex = require("cidr-regex");
 
 // Contains a CIDR IP address?
-cidrRegex().test('foo 192.168.0.1/24');
+cidrRegex().test("foo 192.168.0.1/24");
 //=> true
 
 // Is a CIDR IP address?
-cidrRegex({exact: true}).test('foo 192.168.0.1/24');
+cidrRegex({exact: true}).test("foo 192.168.0.1/24");
 //=> false
 
-cidrRegex.v6({exact: true}).test('1:2:3:4:5:6:7:8/64');
+cidrRegex.v6({exact: true}).test("1:2:3:4:5:6:7:8/64");
 //=> true
 
-'foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz'.match(cidrRegex());
-//=> ['192.168.0.1/24', '1:2:3:4:5:6:7:8/64']
+"foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz".match(cidrRegex());
+//=> ["192.168.0.1/24", "1:2:3:4:5:6:7:8/64"]
 ```
 
 ## API
