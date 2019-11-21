@@ -31,9 +31,9 @@
     "ip-regex": "^2.1.0"
   },
   "devDependencies": {
-    "eslint": "6.0.1",
-    "eslint-config-silverwind": "4.0.2",
-    "updates": "8.4.1",
+    "eslint": "6.6.0",
+    "eslint-config-silverwind": "5.0.0",
+    "updates": "9.1.0",
     "versions": "7.0.2"
   }
 }
