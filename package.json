@@ -1,6 +1,6 @@
 {
   "name": "cidr-regex",
-  "version": "2.0.10",
+  "version": "3.0.0",
   "description": "Regular expression for matching IP addresses in CIDR notation",
   "author": "silverwind <me@silverwind.io>",
   "contributors": [
