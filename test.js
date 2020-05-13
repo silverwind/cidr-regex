@@ -1,7 +1,6 @@
 "use strict";
 
 const cidrRegex = require(".");
-const assert = require("assert");
 
 const v4positive = [
   "0.0.0.0/16",
@@ -383,17 +382,19 @@ const v6negative = [
   "':10.0.0./641",
 ];
 
-v4positive.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), true));
-v4positive.forEach(string => assert.deepStrictEqual((cidrRegex().exec(`foo ${string} bar`) || [])[0], string));
-v4negative.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), false));
-v6positive.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), true));
-v6positive.forEach(string => assert.deepStrictEqual((cidrRegex().exec(`foo ${string} bar`) || [])[0], string));
-v6negative.forEach(string => assert.deepStrictEqual(cidrRegex({exact: true}).test(string), false));
+test("test", () => {
+  v4positive.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(true));
+  v4positive.forEach(string => expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
+  v4negative.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(false));
+  v6positive.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(true));
+  v6positive.forEach(string => expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
+  v6negative.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(false));
 
-v4positive.forEach(string => assert.deepStrictEqual(cidrRegex.v4({exact: true}).test(string), true));
-v4positive.forEach(string => assert.deepStrictEqual((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0], string));
-v4negative.forEach(string => assert.deepStrictEqual(cidrRegex.v4({exact: true}).test(string), false));
+  v4positive.forEach(string => expect(cidrRegex.v4({exact: true}).test(string)).toEqual(true));
+  v4positive.forEach(string => expect((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
+  v4negative.forEach(string => expect(cidrRegex.v4({exact: true}).test(string)).toEqual(false));
 
-v6positive.forEach(string => assert.deepStrictEqual(cidrRegex.v6({exact: true}).test(string), true));
-v6positive.forEach(string => assert.deepStrictEqual((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0], string));
-v6negative.forEach(string => assert.deepStrictEqual(cidrRegex.v6({exact: true}).test(string), false));
+  v6positive.forEach(string => expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true));
+  v6positive.forEach(string => expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
+  v6negative.forEach(string => expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false));
+});
