@@ -383,18 +383,18 @@ const v6negative = [
 ];
 
 test("test", () => {
-  v4positive.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(true));
-  v4positive.forEach(string => expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
-  v4negative.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(false));
-  v6positive.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(true));
-  v6positive.forEach(string => expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
-  v6negative.forEach(string => expect(cidrRegex({exact: true}).test(string)).toEqual(false));
+  for (const string of v4positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
+  for (const string of v4positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v4negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
+  for (const string of v6positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
+  for (const string of v6positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v6negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
 
-  v4positive.forEach(string => expect(cidrRegex.v4({exact: true}).test(string)).toEqual(true));
-  v4positive.forEach(string => expect((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
-  v4negative.forEach(string => expect(cidrRegex.v4({exact: true}).test(string)).toEqual(false));
+  for (const string of v4positive) expect(cidrRegex.v4({exact: true}).test(string)).toEqual(true);
+  for (const string of v4positive) expect((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v4negative) expect(cidrRegex.v4({exact: true}).test(string)).toEqual(false);
 
-  v6positive.forEach(string => expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true));
-  v6positive.forEach(string => expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string));
-  v6negative.forEach(string => expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false));
+  for (const string of v6positive) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true);
+  for (const string of v6positive) expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v6negative) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false);
 });
