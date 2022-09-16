@@ -1,6 +1,4 @@
-"use strict";
-
-const cidrRegex = require(".");
+import cidrRegex, {v4, v6} from "./index.js";
 
 const v4positive = [
   "0.0.0.0/16",
@@ -397,4 +395,7 @@ test("test", () => {
   for (const string of v6positive) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true);
   for (const string of v6positive) expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
   for (const string of v6negative) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false);
+
+  expect(v4).toEqual(cidrRegex.v4);
+  expect(v6).toEqual(cidrRegex.v6);
 });
