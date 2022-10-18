@@ -18,6 +18,17 @@
     "index.js",
     "index.d.ts"
   ],
+  "dependencies": {
+    "ip-regex": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "8.23.1",
+    "eslint-config-silverwind": "54.0.2",
+    "tsd": "0.24.1",
+    "updates": "13.1.5",
+    "versions": "9.3.0",
+    "vitest": "0.24.3"
+  },
   "keywords": [
     "cidr",
     "regex",
@@ -27,17 +38,5 @@
     "prefixes",
     "ip",
     "ip address"
-  ],
-  "dependencies": {
-    "ip-regex": "^5.0.0"
-  },
-  "devDependencies": {
-    "eslint": "8.23.1",
-    "eslint-config-silverwind": "54.0.2",
-    "jest": "29.0.3",
-    "jest-extended": "3.1.0",
-    "tsd": "0.24.1",
-    "updates": "13.1.5",
-    "versions": "9.3.0"
-  }
+  ]
 }
