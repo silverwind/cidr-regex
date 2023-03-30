@@ -10,7 +10,7 @@ $ npm i cidr-regex
 ```
 
 ```js
-const cidrRegex = require("cidr-regex");
+import cidrRegex from "cidr-regex";
 
 // Contains a CIDR IP address?
 cidrRegex().test("foo 192.168.0.1/24");
