@@ -22,12 +22,12 @@
     "ip-regex": "^5.0.0"
   },
   "devDependencies": {
-    "eslint": "8.52.0",
-    "eslint-config-silverwind": "79.0.4",
-    "tsd": "0.29.0",
-    "updates": "15.0.3",
-    "versions": "12.0.0",
-    "vitest": "0.34.6",
-    "vitest-config-silverwind": "5.0.0"
+    "eslint": "8.57.0",
+    "eslint-config-silverwind": "82.0.6",
+    "tsd": "0.30.7",
+    "updates": "16.0.0",
+    "versions": "12.0.1",
+    "vitest": "1.4.0",
+    "vitest-config-silverwind": "7.0.2"
   }
 }

@@ -380,7 +380,7 @@ const v6negative = [
   "':10.0.0./641",
 ];
 
-test("test", () => {
+test("correctness", () => {
   for (const string of v4positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
   for (const string of v4positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
   for (const string of v4negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
