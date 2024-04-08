@@ -1,55 +1,43 @@
-declare namespace ip {
-  interface Options {
-    /**
-    Only match an exact string. Useful with `RegExp#test()` to check if a string is a CIDR IP address. *(`false` matches any CIDR IP address in a string)*
+export type Options = {
+  /**
+  Only match an exact string. Useful with `RegExp#test()` to check if a string is an IP address. *(`false` matches any IP address in a string)*
 
-    @default false
-    */
-    readonly exact?: boolean;
-  }
+  @default false
+  */
+  readonly exact?: boolean;
 }
 
-declare const ip: {
-  /**
-  Regular expression for matching IP addresses in CIDR notation.
+/**
+@returns A regex for matching IPv4 CIDRs.
+*/
+export function v4(options?: Options): RegExp;
 
-  @returns A regex for matching both IPv4 and IPv6 CIDR IP addresses.
+/**
+@returns A regex for matching IPv6 CIDRs.
+*/
+export function v6(options?: Options): RegExp;
 
-  @example
-  ```
-  import cidrRegex = require("cidr-regex");
+/**
+Regular expression for matching IP addresses in CIDR notation
 
-  // Contains a CIDR IP address?
-  cidrRegex().test("foo 192.168.0.1/24");
-  //=> true
+@returns A regex for matching both IPv4 and IPv6 CIDRs.
 
-  // Is a CIDR IP address?
-  cidrRegex({exact: true}).test("foo 192.168.0.1/24");
-  //=> false
+@example
+```
+// Contains a CIDR IP address?
+cidrRegex().test("foo 192.168.0.1/24");
+//=> true
 
-  "foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz".match(cidrRegex());
-  //=> ["192.168.0.1/24", "1:2:3:4:5:6:7:8/64"]
-  ```
-  */
-  (options?: ip.Options): RegExp;
+// Is a CIDR IP address?
+cidrRegex({exact: true}).test("foo 192.168.0.1/24");
+//=> false
 
-  /**
-  @returns A regex for matching IPv4 CIDR IP addresses.
-  */
-  v4(options?: ip.Options): RegExp;
+cidrRegex.v6({exact: true}).test("1:2:3:4:5:6:7:8/64");
+//=> true
 
-  /**
-  @returns A regex for matching IPv6 CIDR IP addresses.
-
-  @example
-  ```
-  import cidrRegex = require("cidr-regex");
-
-  cidrRegex.v6({exact: true}).test("1:2:3:4:5:6:7:8/64");
-  //=> true
-  ```
-  */
-  v6(options?: ip.Options): RegExp;
-};
-
-export = ip;
+// Extract CIDRs from string
+"foo 192.168.0.1/24 bar 1:2:3:4:5:6:7:8/64 baz".match(cidrRegex());
+//=> ["192.168.0.1/24", "1:2:3:4:5:6:7:8/64"]
+```
+*/
+export default function cidrRegex(options?: Options): RegExp;
