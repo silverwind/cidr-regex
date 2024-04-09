@@ -7,3 +7,7 @@ expectType<RegExp>(v4());
 expectType<RegExp>(v4({exact: true}));
 expectType<RegExp>(v6());
 expectType<RegExp>(v6({exact: true}));
+expectType<RegExp>(cidrRegex.v4());
+expectType<RegExp>(cidrRegex.v4({exact: true}));
+expectType<RegExp>(cidrRegex.v6());
+expectType<RegExp>(cidrRegex.v6({exact: true}));
