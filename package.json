@@ -27,7 +27,6 @@
     "eslint": "8.57.0",
     "eslint-config-silverwind": "85.1.4",
     "eslint-config-silverwind-typescript": "3.2.7",
-    "tsd": "0.31.0",
     "typescript": "5.4.5",
     "typescript-config-silverwind": "4.3.2",
     "updates": "16.1.1",
