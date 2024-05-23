@@ -7,10 +7,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [14, 16, 18, 20, 22]
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: ${{matrix.node}}
       - run: make lint test
