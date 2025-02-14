@@ -1,20 +1,11 @@
 {
   "extends": "typescript-config-silverwind",
-  "include": [
-    "**/*",
-    "**/.*",
-    "**/.*/**/*",
-    "**/.*/**/.*",
-  ],
-  "exclude": [
-    "**/dist/**",
-  ],
   "compilerOptions": {
     "strict": true,
     "types": [
       "jest-extended",
       "vite/client",
-      "vitest/globals"
+      "vitest/globals",
     ],
   },
 }
