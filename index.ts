@@ -4,7 +4,7 @@ type Options = {
   /**
   Only match an exact string. Useful with `RegExp#test()` to check if a string is an IP address. *(`false` matches any IP address in a string)*
 
-  @default false
+  @defaultValue false
   */
   readonly exact?: boolean;
 }
