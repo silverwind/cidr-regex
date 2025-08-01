@@ -29,24 +29,23 @@ cidrRegex.v6({exact: true}).test("1:2:3:4:5:6:7:8/64");
 ```
 
 ## API
-### cidrRegex([options])
+### cidrRegex(options?: CidrRegexOptions)
 
 Returns a regex for matching both IPv4 and IPv6 CIDR IP addresses.
 
-### cidrRegex.v4([options])
+### cidrRegex.v4(options?: CidrRegexOptions)
 
 Returns a regex for matching IPv4 CIDR IP addresses.
 
-### cidrRegex.v6([options])
+### cidrRegex.v6(options?: CidrRegexOptions)
 
 Returns a regex for matching IPv6 CIDR IP addresses.
 
-#### options.exact
+#### CidrRegexOptions
 
-Type: `boolean`<br>
-Default: `false` *(Matches any CIDR IP address in a string)*
+The options object has the following properties:
 
-Only match an exact string. Useful with `RegExp#test()` to check if a string is a CIDR IP address.
+- `exact` *boolean*: Only match an exact string. Useful with `RegExp#test()` to check if a string is a CIDR IP address. Default: false.
 
 ## Related
 
