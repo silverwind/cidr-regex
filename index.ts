@@ -7,7 +7,7 @@ type CidrRegexOptions = {
   @defaultValue false
   */
   readonly exact?: boolean;
-}
+};
 
 const defaultOpts: CidrRegexOptions = {exact: false};
 const v4str = `${ipRegex.v4().source}\\/(3[0-2]|[12]?[0-9])`;
