@@ -1,5 +1,5 @@
 # cidr-regex
-[![](https://img.shields.io/npm/v/cidr-regex.svg?style=flat)](https://www.npmjs.org/package/cidr-regex) [![](https://img.shields.io/npm/dm/cidr-regex.svg)](https://www.npmjs.org/package/cidr-regex) [![](https://packagephobia.com/badge?p=cidr-regex)](https://packagephobia.com/result?p=cidr-regex)
+[![](https://img.shields.io/npm/v/cidr-regex.svg?style=flat)](https://www.npmjs.org/package/cidr-regex) [![](https://img.shields.io/npm/dm/cidr-regex.svg)](https://www.npmjs.org/package/cidr-regex) [![](https://packagephobia.com/badge?p=cidr-regex)](https://packagephobia.com/result?p=cidr-regex) [![](https://depx.co/api/badge/cidr-regex)](https://depx.co/pkg/cidr-regex)
 
 > Regular expression for matching IP addresses in CIDR notation
 
