@@ -20,9 +20,6 @@
   "engines": {
     "node": ">=20"
   },
-  "dependencies": {
-    "ip-regex": "5.0.0"
-  },
   "devDependencies": {
     "@types/node": "25.0.10",
     "@typescript/native-preview": "7.0.0-dev.20260212.1",
