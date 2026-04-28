@@ -7,6 +7,19 @@
     "Felipe Apostol <flipjs.io@gmail.com> (http://flipjs.io/)"
   ],
   "repository": "silverwind/cidr-regex",
+  "keywords": [
+    "cidr",
+    "regex",
+    "regexp",
+    "ip",
+    "ipv4",
+    "ipv6",
+    "address",
+    "subnet",
+    "network",
+    "notation",
+    "match"
+  ],
   "license": "BSD-2-Clause",
   "type": "module",
   "sideEffects": false,
