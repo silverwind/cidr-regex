@@ -399,3 +399,12 @@ test("correctness", () => {
   expect(v4).toEqual(cidrRegex.v4);
   expect(v6).toEqual(cidrRegex.v6);
 });
+
+test("no capture groups", () => {
+  expect(cidrRegex({exact: true}).exec("192.168.0.1/24")).toHaveLength(1);
+  expect(cidrRegex({exact: true}).exec("1:2:3:4:5:6:7:8/64")).toHaveLength(1);
+  expect(cidrRegex.v4({exact: true}).exec("192.168.0.1/24")).toHaveLength(1);
+  expect(cidrRegex.v6({exact: true}).exec("1:2:3:4:5:6:7:8/64")).toHaveLength(1);
+  // capture groups would be spliced into the result
+  expect("a 10.0.0.0/8 b ::1/128 c".split(cidrRegex())).toEqual(["a ", " b ", " c"]);
+});
