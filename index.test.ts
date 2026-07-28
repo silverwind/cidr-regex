@@ -54,6 +54,14 @@ const v6positive = [
   "FEC0::/10",
   "1111:2222:3333:4444::123.123.123.123/64",
   "a:b:c:d:e:f:0::/64",
+  // zone ids as platforms actually spell them, per RFC 4007 section 11.2
+  "fe80::1%eth0/64",
+  "fe80::1%eth0.100/64", // VLAN subinterface
+  "fe80::1%br-lan/64",
+  "fe80::1%wg_0/64",
+  "fe80::1%eth0:1/64", // Linux alias interface
+  "fe80::1%{2C1B4A3E-0000}/64", // Windows GUID
+  "fe80::1%2/64", // Windows interface index
 ];
 
 const v6negative = [
@@ -378,6 +386,12 @@ const v6negative = [
   "::3333:4444:5555:6666:7777:8888:/64",
   "::2222:3333:4444:5555:6666:7777:8888:/64",
   "':10.0.0./641",
+  // zone ids no platform would produce: empty, delimiter, whitespace, path separator
+  "fe80::1%/64",
+  "fe80::1%%eth0/64",
+  "fe80::1%eth 0/64",
+  "fe80::1%eth/0/64",
+  "1.2.3.4%eth0/24", // zone ids are IPv6-only
 ];
 
 test("correctness", () => {
