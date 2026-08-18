@@ -1,7 +1,7 @@
 {
   "name": "cidr-regex",
   "version": "7.0.1",
-  "description": "Regular expression for matching IP addresses in CIDR notation",
+  "description": "Regular expression for matching IP addresses in CIDR notation and bare IP addresses",
   "author": "silverwind <me@silverwind.io>",
   "contributors": [
     "Felipe Apostol <flipjs.io@gmail.com> (http://flipjs.io/)"

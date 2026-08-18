@@ -64,13 +64,18 @@ const v6positive = [
   "fe80::1%2/64", // Windows interface index
 ];
 
-const v6negative = [
+// valid addresses carrying an invalid prefix length, so only the prefix makes them negative
+const v6badPrefix = [
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/129",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/a",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/√",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/00",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/03",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/sdfsdfs",
+  "1.2.3.4/64", // v4 address, v6-only prefix length
+];
+
+const v6negative = [
   "sssssss::sssssss/64",
   "2001:DB8:0:0:8:800:200C:417A:221/64",
   "FF01::101::2/64",
@@ -136,7 +141,6 @@ const v6negative = [
   "::ffff:192x168.1.26/64",
   "::ffff:2.3.4/64",
   "::ffff:257.1.2.3/64",
-  "1.2.3.4/64",
   "1.2.3.4:1111:2222:3333:4444::5555/64",
   "1.2.3.4:1111:2222:3333::5555/64",
   "1.2.3.4:1111:2222::5555/64",
@@ -247,7 +251,6 @@ const v6negative = [
   "1111:2222:3333:1.2.3.4/64",
   "1111:2222:1.2.3.4/64",
   "1111:1.2.3.4/64",
-  "1.2.3.4/64",
   "11112222:3333:4444:5555:6666:1.2.3.4/64",
   "1111:22223333:4444:5555:6666:1.2.3.4/64",
   "1111:2222:33334444:5555:6666:1.2.3.4/64",
@@ -400,7 +403,7 @@ test("correctness", () => {
   for (const string of v4negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
   for (const string of v6positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
   for (const string of v6positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
-  for (const string of v6negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
+  for (const string of [...v6negative, ...v6badPrefix]) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
 
   for (const string of v4positive) expect(cidrRegex.v4({exact: true}).test(string)).toEqual(true);
   for (const string of v4positive) expect((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
@@ -408,10 +411,41 @@ test("correctness", () => {
 
   for (const string of v6positive) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true);
   for (const string of v6positive) expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
-  for (const string of v6negative) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false);
+  for (const string of [...v6negative, ...v6badPrefix]) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false);
 
   expect(v4).toEqual(cidrRegex.v4);
   expect(v6).toEqual(cidrRegex.v6);
+});
+
+test("prefix", () => {
+  const bare = (cidr: string) => cidr.slice(0, cidr.lastIndexOf("/"));
+
+  for (const string of [...v4positive, ...v6positive]) {
+    expect(cidrRegex({exact: true, prefix: "optional"}).test(string)).toEqual(true);
+    expect(cidrRegex({exact: true, prefix: "optional"}).test(bare(string))).toEqual(true);
+    expect(cidrRegex({exact: true, prefix: "none"}).test(bare(string))).toEqual(true);
+    expect(cidrRegex({exact: true, prefix: "none"}).test(string)).toEqual(false);
+    expect(cidrRegex({exact: true}).test(bare(string))).toEqual(false);
+  }
+
+  // an optional prefix must not turn an invalid address or an invalid prefix into a match
+  for (const string of [...v4negative, ...v6negative, ...v6badPrefix]) {
+    expect(cidrRegex({exact: true, prefix: "optional"}).test(string)).toEqual(false);
+  }
+
+  // stripped of their prefix, the addresses themselves must still be rejected
+  for (const string of [...v4negative, ...v6negative]) {
+    expect(cidrRegex({exact: true, prefix: "none"}).test(bare(string))).toEqual(false);
+  }
+
+  // each family keeps its own prefix range
+  expect(v4({exact: true, prefix: "optional"}).test("1.2.3.4/33")).toEqual(false);
+  expect(v6({exact: true, prefix: "optional"}).test("::1/129")).toEqual(false);
+  expect(v6({exact: true, prefix: "none"}).test("fe80::1%eth0.100")).toEqual(true);
+
+  const matches = (str: string, re: RegExp) => Array.from(str.matchAll(re), ([match]) => match);
+  expect(matches("foo 1.2.3.4 bar ::1/128 baz", cidrRegex({prefix: "optional"}))).toEqual(["1.2.3.4", "::1/128"]);
+  expect(matches("foo 1.2.3.4/24 bar", cidrRegex({prefix: "none"}))).toEqual(["1.2.3.4"]);
 });
 
 test("no capture groups", () => {
