@@ -29,7 +29,7 @@
   "files": [
     "dist"
   ],
-  "packageManager": "pnpm@11.22.0",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=22"
   },
