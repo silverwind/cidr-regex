@@ -6,7 +6,10 @@
   "contributors": [
     "Felipe Apostol <flipjs.io@gmail.com> (http://flipjs.io/)"
   ],
-  "repository": "silverwind/cidr-regex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silverwind/cidr-regex.git"
+  },
   "keywords": [
     "cidr",
     "regex",
