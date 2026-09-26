@@ -60,7 +60,9 @@ function regexFor(family: number, {exact, prefix = "required"}: CidrRegexOptions
   return re;
 }
 
+export const v4 = (opts: CidrRegexOptions = {}) => regexFor(V4, opts);
+export const v6 = (opts: CidrRegexOptions = {}) => regexFor(V6, opts);
 const cidrRegex = (opts: CidrRegexOptions = {}) => regexFor(V46, opts);
-export const v4 = cidrRegex.v4 = (opts: CidrRegexOptions = {}) => regexFor(V4, opts);
-export const v6 = cidrRegex.v6 = (opts: CidrRegexOptions = {}) => regexFor(V6, opts);
+cidrRegex.v4 = v4;
+cidrRegex.v6 = v6;
 export default cidrRegex;
