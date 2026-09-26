@@ -20,13 +20,10 @@ export type CidrRegexOptions = {
 const octet = "(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)";
 const v4dotted = `${octet}(?:\\.${octet}){3}`;
 const hex = "[\\dA-Fa-f]{1,4}";
-// RFC 4007 section 11.2 leaves the zone id implementation-defined, requiring only that it be non-null
-// and not conflict with the `%` delimiter, so only exclude what no platform puts in an interface name.
-// `/` has to stay out regardless, as the prefix length follows it. Matches ip-bigint's rule.
+// RFC 4007 section 11.2 leaves zone ids implementation-defined, so only exclude what no interface name holds, like ip-bigint
 const scopeIdRe = "(?:%[^\\s%/\\0]+)?";
 const v6addr = `(?:(?:${hex}:){7}(?:${hex}|:)|(?:${hex}:){6}(?:${v4dotted}|:${hex}|:)|(?:${hex}:){5}(?::${v4dotted}|(?::${hex}){1,2}|:)|(?:${hex}:){4}(?:(?::${hex})?:${v4dotted}|(?::${hex}){1,3}|:)|(?:${hex}:){3}(?:(?::${hex}){0,2}:${v4dotted}|(?::${hex}){1,4}|:)|(?:${hex}:){2}(?:(?::${hex}){0,3}:${v4dotted}|(?::${hex}){1,5}|:)|${hex}:(?:(?::${hex}){0,4}:${v4dotted}|(?::${hex}){1,6}|:)|:(?:(?::${hex}){0,5}:${v4dotted}|(?::${hex}){1,7}|:))${scopeIdRe}`;
-// V8 can't extract a first-char filter from the v6 alternation; the explicit lookahead
-// lets scans short-circuit at non-{hex,colon} positions. Only applied to global forms.
+// V8 can't extract a first-char filter from the v6 alternation, so this lets global scans skip non-{hex,colon} positions
 const v6fast = "(?=[\\dA-Fa-f:])";
 
 // one entry per prefix mode, ordered to match the mode numbering in `regexFor`
