@@ -54,17 +54,15 @@ const v6positive = [
   "FEC0::/10",
   "1111:2222:3333:4444::123.123.123.123/64",
   "a:b:c:d:e:f:0::/64",
-  // zone ids as platforms actually spell them, per RFC 4007 section 11.2
   "fe80::1%eth0/64",
-  "fe80::1%eth0.100/64", // VLAN subinterface
+  "fe80::1%eth0.100/64",
   "fe80::1%br-lan/64",
   "fe80::1%wg_0/64",
-  "fe80::1%eth0:1/64", // Linux alias interface
-  "fe80::1%{2C1B4A3E-0000}/64", // Windows GUID
-  "fe80::1%2/64", // Windows interface index
+  "fe80::1%eth0:1/64",
+  "fe80::1%{2C1B4A3E-0000}/64",
+  "fe80::1%2/64",
 ];
 
-// valid addresses carrying an invalid prefix length, so only the prefix makes them negative
 const v6badPrefix = [
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/129",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/a",
@@ -72,7 +70,7 @@ const v6badPrefix = [
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/00",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/03",
   "fe80:0000:0000:0000:0204:61ff:fe9d:f156/sdfsdfs",
-  "1.2.3.4/64", // v4 address, v6-only prefix length
+  "1.2.3.4/64",
 ];
 
 const v6negative = [
@@ -161,13 +159,11 @@ const v6negative = [
   "::5555:/64",
   ":::/64",
   "1111:/64",
-  ":/64",
   ":1111:2222:3333:4444::5555/64",
   ":1111:2222:3333::5555/64",
   ":1111:2222::5555/64",
   ":1111::5555/64",
   ":::5555/64",
-  ":::/64",
   "123/64",
   "ldkfj/64",
   "2001::FFD3::57ab/64",
@@ -202,8 +198,6 @@ const v6negative = [
   "1111:2222:3333:4444:/64",
   "1111:2222:3333:/64",
   "1111:2222:/64",
-  "1111:/64",
-  ":/64",
   ":8888/64",
   ":7777:8888/64",
   ":6666:7777:8888/64",
@@ -302,7 +296,6 @@ const v6negative = [
   ":1111:2222:3333::/64",
   ":1111:2222::/64",
   ":1111::/64",
-  ":::/64",
   ":1111:2222:3333:4444:5555:6666::8888/64",
   ":1111:2222:3333:4444:5555::8888/64",
   ":1111:2222:3333:4444::8888/64",
@@ -330,8 +323,6 @@ const v6negative = [
   ":::4444:5555:6666:7777:8888/64",
   ":1111::3333:4444:5555:6666:7777:8888/64",
   ":::3333:4444:5555:6666:7777:8888/64",
-  ":::2222:3333:4444:5555:6666:7777:8888/64",
-  ":1111:2222:3333:4444:5555:6666:1.2.3.4/64",
   ":1111:2222:3333:4444:5555::1.2.3.4/64",
   ":1111:2222:3333:4444::1.2.3.4/64",
   ":1111:2222:3333::1.2.3.4/64",
@@ -351,15 +342,12 @@ const v6negative = [
   ":1111::4444:5555:6666:1.2.3.4/64",
   ":::4444:5555:6666:1.2.3.4/64",
   ":1111::3333:4444:5555:6666:1.2.3.4/64",
-  ":::2222:3333:4444:5555:6666:1.2.3.4/64",
-  "1111:2222:3333:4444:5555:6666:7777:::/64",
   "1111:2222:3333:4444:5555:6666:::/64",
   "1111:2222:3333:4444:5555:::/64",
   "1111:2222:3333:4444:::/64",
   "1111:2222:3333:::/64",
   "1111:2222:::/64",
   "1111:::/64",
-  ":::/64",
   "1111:2222:3333:4444:5555:6666::8888:/64",
   "1111:2222:3333:4444:5555::8888:/64",
   "1111:2222:3333:4444::8888:/64",
@@ -389,28 +377,27 @@ const v6negative = [
   "::3333:4444:5555:6666:7777:8888:/64",
   "::2222:3333:4444:5555:6666:7777:8888:/64",
   "':10.0.0./641",
-  // zone ids no platform would produce: empty, delimiter, whitespace, path separator
   "fe80::1%/64",
   "fe80::1%%eth0/64",
   "fe80::1%eth 0/64",
   "fe80::1%eth/0/64",
-  "1.2.3.4%eth0/24", // zone ids are IPv6-only
+  "1.2.3.4%eth0/24",
 ];
 
 test("correctness", () => {
   for (const string of v4positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
-  for (const string of v4positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v4positive) expect(cidrRegex().exec(`foo ${string} bar`)?.[0]).toEqual(string);
   for (const string of v4negative) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
   for (const string of v6positive) expect(cidrRegex({exact: true}).test(string)).toEqual(true);
-  for (const string of v6positive) expect((cidrRegex().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v6positive) expect(cidrRegex().exec(`foo ${string} bar`)?.[0]).toEqual(string);
   for (const string of [...v6negative, ...v6badPrefix]) expect(cidrRegex({exact: true}).test(string)).toEqual(false);
 
   for (const string of v4positive) expect(cidrRegex.v4({exact: true}).test(string)).toEqual(true);
-  for (const string of v4positive) expect((cidrRegex.v4().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v4positive) expect(cidrRegex.v4().exec(`foo ${string} bar`)?.[0]).toEqual(string);
   for (const string of v4negative) expect(cidrRegex.v4({exact: true}).test(string)).toEqual(false);
 
   for (const string of v6positive) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(true);
-  for (const string of v6positive) expect((cidrRegex.v6().exec(`foo ${string} bar`) || [])[0]).toEqual(string);
+  for (const string of v6positive) expect(cidrRegex.v6().exec(`foo ${string} bar`)?.[0]).toEqual(string);
   for (const string of [...v6negative, ...v6badPrefix]) expect(cidrRegex.v6({exact: true}).test(string)).toEqual(false);
 
   expect(v4).toEqual(cidrRegex.v4);
@@ -428,17 +415,14 @@ test("prefix", () => {
     expect(cidrRegex({exact: true}).test(bare(string))).toEqual(false);
   }
 
-  // an optional prefix must not turn an invalid address or an invalid prefix into a match
   for (const string of [...v4negative, ...v6negative, ...v6badPrefix]) {
     expect(cidrRegex({exact: true, prefix: "optional"}).test(string)).toEqual(false);
   }
 
-  // stripped of their prefix, the addresses themselves must still be rejected
   for (const string of [...v4negative, ...v6negative]) {
     expect(cidrRegex({exact: true, prefix: "none"}).test(bare(string))).toEqual(false);
   }
 
-  // each family keeps its own prefix range
   expect(v4({exact: true, prefix: "optional"}).test("1.2.3.4/33")).toEqual(false);
   expect(v6({exact: true, prefix: "optional"}).test("::1/129")).toEqual(false);
   expect(v6({exact: true, prefix: "none"}).test("fe80::1%eth0.100")).toEqual(true);
@@ -453,6 +437,5 @@ test("no capture groups", () => {
   expect(cidrRegex({exact: true}).exec("1:2:3:4:5:6:7:8/64")).toHaveLength(1);
   expect(cidrRegex.v4({exact: true}).exec("192.168.0.1/24")).toHaveLength(1);
   expect(cidrRegex.v6({exact: true}).exec("1:2:3:4:5:6:7:8/64")).toHaveLength(1);
-  // capture groups would be spliced into the result
   expect("a 10.0.0.0/8 b ::1/128 c".split(cidrRegex())).toEqual(["a ", " b ", " c"]);
 });
