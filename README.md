@@ -6,7 +6,7 @@
 ## Usage
 
 ```sh
-$ npm i cidr-regex
+pnpm add cidr-regex
 ```
 
 ```js
@@ -68,8 +68,6 @@ The options object has the following properties:
 - [is-cidr](https://github.com/silverwind/is-cidr) - Check if a string is an IP address in CIDR notation
 - [is-ip](https://github.com/sindresorhus/is-ip) - Check if a string is an IP address
 - [cidr-tools](https://github.com/silverwind/cidr-tools) - Tools to work with IPv4 and IPv6 CIDR network lists
-
-## License
 
 © [silverwind](https://github.com/silverwind), distributed under BSD licence
 
